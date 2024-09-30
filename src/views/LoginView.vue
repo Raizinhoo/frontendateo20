@@ -1,6 +1,8 @@
 <script setup>
 import "@passageidentity/passage-elements/passage-auth";
+<passsege-auth app-id="vmamN9wqbUUihzHXKhRxtqku"></passsege-auth>
 </script>
+
 
 <template>
   <h1>Login</h1>
