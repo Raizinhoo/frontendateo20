@@ -1,4 +1,5 @@
 <script setup>
+
 import { onMounted, ref } from 'vue';
 import { PassageUser } from '@passageidentity/passage-elements/passage-user';
 import { useAuthStore } from '@/stores/auth';
