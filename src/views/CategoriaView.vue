@@ -1,39 +1,28 @@
 <script setup>
 import { ref, reactive, onMounted } from "vue";
-import CategoriasApi from "@/api/categorias";
+import { useCategoriaStore } from '@/stores/categoria'
 
-const categoriasApi = new CategoriasApi();
+const categoriaStore = useCategoriaStore()
 const defaultCategoria = { id: null, descricao: "" };
-const categorias = ref([]);
 const categoria = reactive({ ...defaultCategoria });
 
-onMounted(async () => {
-  categorias.value = await categoriasApi.buscarTodasAsCategorias();
-});
-
-function limpar() {
-  Object.assign(categoria, { ...defaultCategoria });
-}
+const limpar = () => { Object.assign(categoria, { ...defaultCategoria })}
+const editar = (categoria_para_editar) => { Object.assign(categoria, categoria_para_editar)}
 
 async function salvar() {
-  if (categoria.id) {
-    await categoriasApi.atualizarCategoria(categoria);
-  } else {
-    await categoriasApi.adicionarCategoria(categoria);
-  }
-  categorias.value = await categoriasApi.buscarTodasAsCategorias();
+  await categoriaStore.salvarCategoria(categoria)
   limpar();
-}
-
-function editar(categoria_para_editar) {
-  Object.assign(categoria, categoria_para_editar);
 }
 
 async function excluir(id) {
-  await categoriasApi.excluirCategoria(id);
-  categorias.value = await categoriasApi.buscarTodasAsCategorias();
+  categoriaStore.excluirCategoria(id)
   limpar();
 }
+
+onMounted(() => {
+  categoriaStore.buscarTodasAsCategorias();
+});
+
 </script>
 
 <template>
@@ -45,9 +34,9 @@ async function excluir(id) {
     <button @click="limpar">Limpar</button>
   </div>
   <hr />
-  {{ categorias }} {{compras}}
+  {{ categoriaStore.categorias }} 
   <ul>
-    <li v-for="categoria in categorias" :key="categoria.id">
+    <li v-for="categoria in categoriaStore.categorias" :key="categoria.id">
       <span @click="editar(categoria)">
         ({{ categoria.descricao }})
       </span>
