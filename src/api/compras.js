@@ -8,11 +8,11 @@ export default class ComprasApi {
     const { data } = await axios.post("/compras/", compra);
     return data.results;
   }
-  async atualizarCategoria(compra) {
+  async atualizarCompra(compra) {
     const { data } = await axios.put(`/compras/${compra.id}/`, compra);
     return data.results;
   }
-  async excluirCategoria(id) {
+  async excluirCompra(id) {
     const { data } = await axios.delete(`/compras/${id}/`);
     return data.results;
   }

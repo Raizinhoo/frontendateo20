@@ -1,8 +1,8 @@
 <script setup>
 import { ref, reactive, onMounted } from "vue";
 import CategoriasApi from "@/api/categorias";
-const categoriasApi = new CategoriasApi();
 
+const categoriasApi = new CategoriasApi();
 const defaultCategoria = { id: null, descricao: "" };
 const categorias = ref([]);
 const categoria = reactive({ ...defaultCategoria });
@@ -45,10 +45,11 @@ async function excluir(id) {
     <button @click="limpar">Limpar</button>
   </div>
   <hr />
+  {{ categorias }} {{compras}}
   <ul>
     <li v-for="categoria in categorias" :key="categoria.id">
       <span @click="editar(categoria)">
-        ({{ categoria.id }}) - {{ categoria.descricao }} -
+        ({{ categoria.descricao }})
       </span>
       <button @click="excluir(categoria.id)">X</button>
     </li>
