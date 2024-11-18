@@ -13,6 +13,12 @@ export const useCompraStore = defineStore('compra', () => {
   }
 
   async function salvarCompra(compra) {
+    delete compra.status_display
+    const statusNumber = parseInt(compra.status.replace(/\D/g, ''), 10) || 0
+
+    compra.status = statusNumber
+    console.log(compra);
+    
     if (compra.id) {
       await comprasApi.atualizarCompra(compra)
     } else {

@@ -8,9 +8,7 @@ export default class ComprasApi {
     const { data } = await axios.post("/compras/", compra);
     return data.results;
   }
-  async atualizarCompra(compra) {
-    console.log(compra);
-    
+  async atualizarCompra(compra) {    
     const { data } = await axios.put(`/compras/${compra.id}/`, compra);
     return data.results;
   }
