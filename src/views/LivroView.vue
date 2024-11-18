@@ -6,7 +6,7 @@ const livroStore = useLivroStore()
 const defaultLivro = {id: null, descricao: ""};
 const livro = reactive({...defaultLivro});
 
-const limpar = ()=> {Object.assign(categoria, {...defaultLivro})}
+const limpar = ()=> {Object.assign(livro, {...defaultLivro})}
 const editar = (livro_para_editar) => {Object.assign(livro, livro_para_editar)}
 
 async function salvar() {

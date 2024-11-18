@@ -1,55 +1,50 @@
 <script setup>
 import { ref, reactive, onMounted } from "vue";
-import ComprasApi from "@/api/compras";
+import { useCompraStore } from '@/stores/compra'
 
-const comprasApi = new ComprasApi();
-const defaultCompra = { id: null, itens: "" };
+const compraStore = new useCompraStore();
+const defaultCompra = { id: null, status: "" };
 const compras = ref([]);
 const compra = reactive({ ...defaultCompra });
 
-onMounted(async () => {
-  compras.value = await comprasApi.buscarTodasAsCompras();
-});
-
-function limpar() {
-  Object.assign(compra, { ...defaultCompra });
-}
+const editar = (compra_para_editar) => {Object.assign(compra, compra_para_editar)}
+const limpar = ()=> {Object.assign(compra, {...defaultCompra})}
 
 async function salvar() {
-  if (categoria.id) {
-    await comprasApi.atualizarCompra(compra);
-  } else {
-    await comprasApi.adicionarCompra(compra);
-  }
-  compras.value = await comprasApi.buscarTodasAsCompras();
+  await compraStore.salvarCompra(compra);
   limpar();
-}
-
-function editar(compra_para_editar) {
-  Object.assign(compra, compra_para_editar);
 }
 
 async function excluir(id) {
-  await comprasApi.excluirCompra(id);
-  compras.value = await comprasApi.buscarTodasAsCompras();
+  await compraStore.excluirCompra(id);
   limpar();
 }
+  
+onMounted(() => {
+  compraStore.buscarTodasAsCompras();
+});
 </script>
 
 <template>
   <h1>Compras</h1>
   <hr />
   <div class="form">
-    <input type="text" v-model="compra.itens" placeholder="Descrição" />
+    <select v-model="compra.status"> 
+      <option disabled value=""></option>
+      <option value="Carrinho">Carrinho</option>
+      <option value="Realizado">Realizado</option>
+      <option value="Pago">Pago</option>
+      <option value="Entregue">Entregue</option>
+    </select>
     <button @click="salvar">Salvar</button>
     <button @click="limpar">Limpar</button>
   </div>
   <hr />
-        {{compras}}
+        {{compraStore.compras}}
   <ul>
-    <li v-for="compra in compras" :key="compra.id">
+    <li v-for="compra in compraStore.compras" :key="compra.id">
       <span @click="editar(compra)">
-        ({{ compra.id }}) ({{compra.usuario}})
+        ({{ compra.id }}) ({{compra.usuario}}) - STATUS: {{ compra.status }}
       </span>
       <button @click="excluir(compra.id)">X</button>
     </li>

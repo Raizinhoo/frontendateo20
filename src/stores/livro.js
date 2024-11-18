@@ -1,16 +1,29 @@
-import { ref } from "vue"
-import { defineStore } from "pinia"
+import { ref } from 'vue'
+import { defineStore } from 'pinia'
 
-import LivrosApi from "@/api/livros";
+import LivrosApi from '@/api/livros'
 const livrosApi = new LivrosApi()
 
-export const useLivroStore = defineStore('livro', ()=>{
-    const livros = ref ([])
+export const useLivroStore = defineStore('livro', () => {
+  const livros = ref([])
 
-    async function buscarTodosOsLivros() {
-        livros.value = await livrosApi.buscarTodosOsLivros();
+  async function excluirLivro(id) {
+    await livrosApi.excluirLivro(id)
+    livros.value = await livrosApi.buscarTodosOsLivros()
+  }
+
+  async function salvarLivro(livro) {
+    if (livro.id) {
+      await livrosApi.atualizarLivro(livro)
+    } else {
+      await livrosApi.adicionarLivro(livro)
     }
+    livros.value = await livrosApi.buscarTodosOsLivros()
+  }
 
-    return { livros, buscarTodosOsLivros}
-        
+  async function buscarTodosOsLivros() {
+    livros.value = await livrosApi.buscarTodosOsLivros()
+  }
+
+  return { livros, buscarTodosOsLivros, salvarLivro, excluirLivro }
 })
