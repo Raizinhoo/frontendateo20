@@ -55,7 +55,7 @@ onMounted(()=> {
                 <small>ISBN: {{ livro.isbn || 'Não disponível' }}</small> <br />
                 Quantidade: {{ livro.quantidade }} <br />
                 Preço: R$ {{ livro.preco }} <br />
-                Categoria: {{ livro.categoria }} <br />
+                Categoria: {{ livro.categoria.descricao }} <br />
             </span>
             <button @click="excluir(livro.id)">Excluir</button>
         </li>
