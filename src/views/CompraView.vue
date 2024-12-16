@@ -51,4 +51,111 @@ onMounted(() => {
   </ul>
 </template>
 
-<style></style>
+<style scoped>
+/* Estilos para o título e layout principal */
+h1 {
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+hr {
+    border: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Inputs e select */
+select {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Lista de compras */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+}
+
+li span {
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+li span:hover {
+    color: #0056b3;
+}
+
+/* Botão de excluir */
+li button {
+    background-color: #dc3545;
+    border-radius: 3px;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+li button:hover {
+    background-color: #c82333;
+}
+
+li span {
+    cursor: pointer;
+    color: #333; /* Cor preta, ou qualquer outra cor */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+li span:hover {
+    color: #555; /* Cor um pouco mais clara ou qualquer outra cor */
+}
+
+</style>
