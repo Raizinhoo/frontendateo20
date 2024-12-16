@@ -52,110 +52,137 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* Estilos para o título e layout principal */
+/* Estilos gerais para o corpo da página */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+/* Cabeçalho */
 h1 {
-    font-family: Arial, sans-serif;
-    font-size: 24px;
-    color: #333;
-    text-align: center;
-    margin-bottom: 10px;
+  text-align: center;
+  color: #333;
+  margin-top: 20px;
+  font-size: 2rem;
 }
 
-hr {
-    border: 1px solid #ddd;
-    margin: 20px 0;
-}
-
+/* Estilo do formulário de entrada */
 .form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px;
 }
 
-/* Inputs e select */
-select {
-    width: 300px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: #f9f9f9;
+.form select {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 300px; /* Tamanho máximo */
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.form button {
+  padding: 10px 15px;
+  font-size: 1rem;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-button:hover {
-    background-color: #0056b3;
+.form button:hover {
+  background-color: #0056b3;
 }
 
-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-/* Lista de compras */
+/* Estilo da lista de compras */
 ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 auto;
-    max-width: 600px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    font-family: Arial, sans-serif;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin: 10px;
+  width: 250px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+li:hover {
+  transform: scale(1.05);
 }
 
 li span {
-    cursor: pointer;
-    color: #007bff;
-    text-decoration: none;
-    transition: color 0.3s;
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #333;
 }
 
-li span:hover {
-    color: #0056b3;
+li small {
+  font-size: 0.9rem;
+  color: #666;
+  display: block;
 }
 
-/* Botão de excluir */
 li button {
-    background-color: #dc3545;
-    border-radius: 3px;
-    padding: 5px 10px;
-    font-size: 14px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 li button:hover {
-    background-color: #c82333;
+  background-color: #c82333;
 }
 
-li span {
-    cursor: pointer;
-    color: #333; /* Cor preta, ou qualquer outra cor */
-    text-decoration: none;
-    transition: color 0.3s;
+hr {
+  border: 1px solid #ccc;
+  margin: 20px 0;
 }
 
-li span:hover {
-    color: #555; /* Cor um pouco mais clara ou qualquer outra cor */
-}
+/* Estilo responsivo */
+@media (max-width: 768px) {
+  .form {
+    flex-direction: column;
+    align-items: center;
+  }
 
+  .form select {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .form button {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  li {
+    width: 90%;
+    max-width: 400px;
+  }
+}
 </style>
