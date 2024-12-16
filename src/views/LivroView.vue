@@ -2,9 +2,18 @@
 import {ref, reactive, onMounted} from "vue";
 import {useLivroStore} from '@/stores/livro'
 
-const livroStore = useLivroStore()
-const defaultLivro = {id: null, descricao: ""};
+const defaultLivro = {
+    id: null,
+    titulo: "",
+    isbn: "",
+    quantidade: 0,
+    preco: 0.0,
+    categoria: { id: null, descricao: "" }
+};
+
 const livro = reactive({...defaultLivro});
+const livroStore = useLivroStore()
+
 
 const limpar = ()=> {Object.assign(livro, {...defaultLivro})}
 const editar = (livro_para_editar) => {Object.assign(livro, livro_para_editar)}
@@ -35,18 +44,13 @@ onMounted(()=> {
         <input type="text" v-model="livro.isbn" placeholder="ISBN"/>
         <input type="number" v-model="livro.quantidade" placeholder="Quantidade"/>
         <input type="text" v-model="livro.preco" placeholder="Preço"/>
-        <input type="number" v-model="livro.categoria" placeholder="Categoria"/>
+        <input type="text" v-model="livro.categoria.descricao" placeholder="Categoria"/>
         <button @click="salvar">Salvar</button>
         <button @click="limpar">Limpar</button>
     </div>
 
     <hr />
-
-    <!-- Feedback de sucesso -->
-    <div v-if="mensagemSucesso" class="sucesso">
-        {{ mensagemSucesso }}
-    </div>
-
+        {{livro}}
     <!-- Lista de livros -->
     <ul>
         <li v-for="livro in livroStore.livros" :key="livro.id">
