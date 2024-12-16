@@ -8,7 +8,7 @@ const defaultLivro = {
     isbn: "",
     quantidade: 0,
     preco: 0.0,
-    categoria: { id: null, descricao: "" }
+    // categoria: { id: null, descricao: "" }
 };
 
 const livro = reactive({...defaultLivro});
@@ -44,7 +44,7 @@ onMounted(()=> {
         <input type="text" v-model="livro.isbn" placeholder="ISBN"/>
         <input type="number" v-model="livro.quantidade" placeholder="Quantidade"/>
         <input type="text" v-model="livro.preco" placeholder="Preço"/>
-        <input type="text" v-model="livro.categoria.descricao" placeholder="Categoria"/>
+        <!-- <input type="text" v-model="livro.categoria" placeholder="Categoria"/> -->
         <button @click="salvar">Salvar</button>
         <button @click="limpar">Limpar</button>
     </div>
@@ -59,7 +59,7 @@ onMounted(()=> {
                 <small>ISBN: {{ livro.isbn || 'Não disponível' }}</small> <br />
                 Quantidade: {{ livro.quantidade }} <br />
                 Preço: R$ {{ livro.preco }} <br />
-                Categoria: {{ livro.categoria.descricao }} <br />
+                <!-- Categoria: {{ livro.categoria.descricao }} <br /> -->
             </span>
             <button @click="excluir(livro.id)">Excluir</button>
         </li>
