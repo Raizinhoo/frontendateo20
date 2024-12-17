@@ -1,6 +1,7 @@
 <script setup>
 import {ref, reactive, onMounted} from "vue";
 import {useLivroStore} from '@/stores/livro'
+import {useCategoriaStore} from '@/stores/categoria'
 
 const defaultLivro = {
     id: null,
@@ -8,17 +9,22 @@ const defaultLivro = {
     isbn: "",
     quantidade: 0,
     preco: 0.0,
-    // categoria: { id: null, descricao: "" }
+    categoria: { id: null, descricao: "" }
 };
 
 const livro = reactive({...defaultLivro});
 const livroStore = useLivroStore()
-
+const categoriaStore = useCategoriaStore()
+const categoriaSelecionada = ref()
 
 const limpar = ()=> {Object.assign(livro, {...defaultLivro})}
-const editar = (livro_para_editar) => {Object.assign(livro, livro_para_editar)}
+const editar = (livro_para_editar) => {
+  Object.assign(livro, livro_para_editar)
+  categoriaSelecionada.value = livro_para_editar.categoria.id
+  }
 
 async function salvar() {
+    livro.categoria.id = categoriaSelecionada.value
     await livroStore.salvarLivro(livro)
     limpar();
 }
@@ -28,8 +34,9 @@ async function excluir(id) {
     limpar();
 }
 
-onMounted(()=> {
-    livroStore.buscarTodosOsLivros();
+onMounted(async()=> {
+    await livroStore.buscarTodosOsLivros();
+    await categoriaStore.buscarTodasAsCategorias();
 });
 
 </script>
@@ -41,16 +48,20 @@ onMounted(()=> {
     <!-- Formulário de entrada -->
     <div class="form">
         <input type="text" v-model="livro.titulo" placeholder="Título"/>
-        <input type="text" v-model="livro.isbn" placeholder="ISBN"/>
+        <input type="number" v-model.number="livro.isbn" placeholder="ISBN"/>
         <input type="number" v-model="livro.quantidade" placeholder="Quantidade"/>
         <input type="text" v-model="livro.preco" placeholder="Preço"/>
-        <!-- <input type="text" v-model="livro.categoria" placeholder="Categoria"/> -->
+        <select name="categoria" id="categoria" v-model.number="categoriaSelecionada">
+          <option value="" disabled selected>Selecione uma Categoria</option>
+          <option :value="categoria.id" v-for="categoria in categoriaStore.categorias" :key="categoria.id">{{ categoria.descricao }}</option>
+        </select>
         <button @click="salvar">Salvar</button>
         <button @click="limpar">Limpar</button>
     </div>
 
     <hr />
         {{livro}}
+        {{categoriaSelecionada}}
     <!-- Lista de livros -->
     <ul>
         <li v-for="livro in livroStore.livros" :key="livro.id">
@@ -59,7 +70,7 @@ onMounted(()=> {
                 <small>ISBN: {{ livro.isbn || 'Não disponível' }}</small> <br />
                 Quantidade: {{ livro.quantidade }} <br />
                 Preço: R$ {{ livro.preco }} <br />
-                <!-- Categoria: {{ livro.categoria.descricao }} <br /> -->
+                Categoria: {{ livro.categoria?.descricao }} <br />
             </span>
             <button @click="excluir(livro.id)">Excluir</button>
         </li>

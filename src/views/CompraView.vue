@@ -29,7 +29,7 @@ onMounted(() => {
   <h1>Compras</h1>
   <hr />
   <div class="form">
-    <select v-model="compra.status"> 
+    <select v-model.number="compra.status"> 
       <option disabled value=""></option>
       <option value=1>Carrinho</option>
       <option value=2>Realizado</option>
@@ -40,7 +40,7 @@ onMounted(() => {
     <button @click="limpar">Limpar</button>
   </div>
   <hr />
-        {{compraStore.compras}}
+        <!-- {{compraStore.compras}} -->
   <ul>
     <li v-for="c in compraStore.compras" :key="c.id">
       <span @click="editar(c)">

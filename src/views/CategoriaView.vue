@@ -34,7 +34,7 @@ onMounted(() => {
     <button @click="limpar">Limpar</button>
   </div>
   <hr />
-  {{ categoriaStore.categorias }} 
+  <!-- {{ categoriaStore.categorias }}  -->
   <ul>
     <li v-for="categoria in categoriaStore.categorias" :key="categoria.id">
       <span @click="editar(categoria)">

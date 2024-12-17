@@ -14,8 +14,10 @@ export const useLivroStore = defineStore('livro', () => {
 
   async function salvarLivro(livro) {
     if (livro.id) {
+      livro.categoria = livro.categoria.id
       await livrosApi.atualizarLivro(livro)
     } else {
+      livro.categoria = livro.categoria.id  
       await livrosApi.adicionarLivro(livro)
     }
     livros.value = await livrosApi.buscarTodosOsLivros()
